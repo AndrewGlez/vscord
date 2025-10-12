@@ -1,4 +1,4 @@
-import { commands, ConfigurationTarget, window, workspace, type ExtensionContext } from "vscode";
+import { commands, window, workspace, type ExtensionContext } from "vscode";
 import { getApplicationId } from "./helpers/getApplicationId";
 import { StatusBarMode, editor } from "./editor";
 import { RPCController } from "./controller";
@@ -39,7 +39,7 @@ export const registerCommands = (ctx: ExtensionContext) => {
     const enable = async (update = true) => {
         if (update)
             try {
-                await config.update(CONFIG_KEYS.Enable, true, ConfigurationTarget.Workspace);
+                await config.update(CONFIG_KEYS.Enable, true);
             } catch {}
 
         await controller.enable();
@@ -48,7 +48,7 @@ export const registerCommands = (ctx: ExtensionContext) => {
     const disable = async (update = true) => {
         if (update)
             try {
-                await config.update(CONFIG_KEYS.Enable, false, ConfigurationTarget.Workspace);
+                await config.update(CONFIG_KEYS.Enable, false);
             } catch {}
 
         await controller.disable();
@@ -59,7 +59,7 @@ export const registerCommands = (ctx: ExtensionContext) => {
 
     const togglePrivacyMode = async (activate: boolean) => {
         try {
-            await config.update(CONFIG_KEYS.App.PrivacyMode, activate, ConfigurationTarget.Workspace);
+            await config.update(CONFIG_KEYS.App.PrivacyMode, activate);
         } catch {}
 
         await controller.sendActivity(dataClass.editor != null);
