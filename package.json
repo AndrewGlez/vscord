@@ -46,14 +46,14 @@
         "lint:fix": "pnpm prettier . --write"
     },
     "devDependencies": {
-        "@types/node": "~22.15.21",
-        "@types/vscode": "^1.78.0",
-        "@vscode/vsce": "^3.6.2",
+        "@types/node": "~22.15.35",
+        "@types/vscode": "1.78.0",
+        "@vscode/vsce": "^3.7.0",
         "@xhayper/discord-rpc": "^1.3.0",
-        "discord-api-types": "^0.38.29",
+        "discord-api-types": "^0.38.34",
         "filesize": "^11.0.13",
         "git-url-parse": "^16.1.0",
-        "tsup": "^8.5.0",
+        "tsup": "^8.5.1",
         "typescript": "^5.9.3"
     },
     "engines": {
@@ -712,11 +712,6 @@
                         "default": false,
                         "description": "Suppresses \"RPC_COULD_NOT_CONNECT\" notification."
                     },
-                    "vscord.behaviour.prioritizeLanguagesOverExtensions": {
-                        "type": "boolean",
-                        "default": false,
-                        "description": "Prioritize language defined by editor over file extension when determining the language for the file."
-                    },
                     "vscord.behaviour.statusBarAlignment": {
                         "type": "string",
                         "enum": [
@@ -1013,8 +1008,8 @@
                     },
                     "rpc.prioritizeLanguagesOverExtensions": {
                         "type": "boolean",
-                        "markdownDeprecationMessage": "**Deprecated**: Please use `#vscord.behaviour.prioritizeLanguagesOverExtensions#` instead.",
-                        "deprecationMessage": "Deprecated: Please use vscord.behaviour.prioritizeLanguagesOverExtensions instead."
+                        "markdownDeprecationMessage": "**Deprecated**",
+                        "deprecationMessage": "Deprecated"
                     },
                     "rpc.fileSizeHumanReadable": {
                         "type": "boolean",

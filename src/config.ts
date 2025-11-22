@@ -111,7 +111,6 @@ export interface ExtensionConfigurationType {
     "behaviour.additionalFileMapping": Record<string, string>;
     "behaviour.suppressNotifications": boolean;
     "behaviour.suppressRpcCouldNotConnect": boolean;
-    "behaviour.prioritizeLanguagesOverExtensions": boolean;
     "behaviour.statusBarAlignment": "Left" | "Right";
     "behaviour.debug": boolean;
 }
