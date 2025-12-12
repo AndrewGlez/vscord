@@ -19,7 +19,7 @@ jobs:
 
       - run: npm install
 
-      - run: npm pkg
+      - run: npm run pkg
 
       - name: Publish to Open VSX Registry
         uses: HaaLeo/publish-vscode-extension@v2
