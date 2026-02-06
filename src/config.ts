@@ -20,6 +20,7 @@ export interface ExtensionConfigurationType {
     "status.details.text.debugging": string;
     "status.details.text.notInFile": string;
     "status.details.text.noWorkSpaceText": string;
+    "status.details.text.opencodeTerminal": string;
     "status.state.enabled": boolean;
     "status.state.debugging.enabled": boolean;
     "status.state.idle.enabled": boolean;
@@ -29,6 +30,7 @@ export interface ExtensionConfigurationType {
     "status.state.text.debugging": string;
     "status.state.text.notInFile": string;
     "status.state.text.noWorkspaceFound": string;
+    "status.state.text.opencodeTerminal": string;
     "status.buttons.button1.enabled": boolean;
     "status.buttons.button1.active.enabled": boolean;
     "status.buttons.button1.active.label": string;
@@ -77,6 +79,8 @@ export interface ExtensionConfigurationType {
     "status.image.large.debugging.text": string;
     "status.image.large.notInFile.key": string;
     "status.image.large.notInFile.text": string;
+    "status.image.large.opencodeTerminal.key": string;
+    "status.image.large.opencodeTerminal.text": string;
     "status.image.small.idle.key": string;
     "status.image.small.idle.text": string;
     "status.image.small.viewing.key": string;
@@ -87,6 +91,8 @@ export interface ExtensionConfigurationType {
     "status.image.small.debugging.text": string;
     "status.image.small.notInFile.key": string;
     "status.image.small.notInFile.text": string;
+    "status.image.small.opencodeTerminal.key": string;
+    "status.image.small.opencodeTerminal.text": string;
     "status.image.problems.enabled": boolean;
     "status.image.problems.text": string;
     "status.problems.enabled": boolean;

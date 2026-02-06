@@ -340,6 +340,11 @@
                         "default": "Not in a file!",
                         "description": "The text to show when you are not in a file."
                     },
+                    "vscord.status.details.text.opencodeTerminal": {
+                        "type": "string",
+                        "default": "Using OpenCode",
+                        "description": "The text to show when using OpenCode in terminal."
+                    },
                     "vscord.status.details.text.noWorkSpaceText": {
                         "type": "string",
                         "default": "no workspace",
@@ -390,6 +395,11 @@
                         "type": "string",
                         "default": "",
                         "description": "The text to show when you are not in a file."
+                    },
+                    "vscord.status.state.text.opencodeTerminal": {
+                        "type": "string",
+                        "default": "In terminal",
+                        "description": "The text to show when using OpenCode in terminal."
                     },
                     "vscord.status.state.text.noWorkspaceFound": {
                         "type": "string",
@@ -452,6 +462,16 @@
                         "default": "",
                         "description": "The large text to show when you are not in a file."
                     },
+                    "vscord.status.image.large.opencodeTerminal.key": {
+                        "type": "string",
+                        "default": "https://raw.githubusercontent.com/AndrewGlez/vscord/refs/heads/main/assets/icons/opencode.png",
+                        "description": "The image url to use when using OpenCode in terminal."
+                    },
+                    "vscord.status.image.large.opencodeTerminal.text": {
+                        "type": "string",
+                        "default": "OpenCode",
+                        "description": "The large text to show when using OpenCode in terminal."
+                    },
                     "vscord.status.image.small.idle.key": {
                         "type": "string",
                         "default": "https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/idle.png",
@@ -501,6 +521,16 @@
                         "type": "string",
                         "default": "Snoozin...",
                         "description": "The small text to show when you are not in a file."
+                    },
+                    "vscord.status.image.small.opencodeTerminal.key": {
+                        "type": "string",
+                        "default": "https://raw.githubusercontent.com/LeonardSSH/vscord/main/assets/icons/{app_id}.png",
+                        "description": "The image url to use when using OpenCode in terminal."
+                    },
+                    "vscord.status.image.small.opencodeTerminal.text": {
+                        "type": "string",
+                        "default": "{app_name}",
+                        "description": "The small text to show when using OpenCode in terminal."
                     }
                 }
             },

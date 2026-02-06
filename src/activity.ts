@@ -25,7 +25,8 @@ export enum CURRENT_STATUS {
     NOT_IN_FILE = "notInFile",
     EDITING = "editing",
     DEBUGGING = "debugging",
-    VIEWING = "viewing"
+    VIEWING = "viewing",
+    OPENCODE_TERMINAL = "opencodeTerminal"
 }
 
 export enum PROBLEM_LEVEL {
@@ -87,8 +88,8 @@ export const activity = async (
     const config = getConfig();
     const presence = previous;
 
-    const openCodePresence = checkOpenCodeTerminal(config, previous);
-    if (openCodePresence) return openCodePresence;
+    const activeTerminal = window.activeTerminal?.name ?? dataClass.activeTerminalName;
+    const isOpenCodeTerminal = activeTerminal?.toLowerCase().includes("opencode") ?? false;
 
     if (
         isIdling &&
@@ -140,6 +141,7 @@ export const activity = async (
 
     let status: CURRENT_STATUS;
     if (isIdling) status = CURRENT_STATUS.IDLE;
+    else if (isOpenCodeTerminal && !window.activeTextEditor) status = CURRENT_STATUS.OPENCODE_TERMINAL;
     else if (isNotInFile) status = CURRENT_STATUS.NOT_IN_FILE;
     else if (isDebugging) status = CURRENT_STATUS.DEBUGGING;
     else if (isViewing) status = CURRENT_STATUS.VIEWING;
@@ -272,6 +274,18 @@ export const activity = async (
 
             smallImageKey = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Small.NotInFile.Key)!);
             smallImageText = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Small.NotInFile.Text)!);
+            break;
+        }
+        case CURRENT_STATUS.OPENCODE_TERMINAL: {
+            if (detailsEnabled)
+                details = await replaceAllText(config.get(CONFIG_KEYS.Status.Details.Text.OpenCodeTerminal)!);
+            if (stateEnabled) state = await replaceAllText(config.get(CONFIG_KEYS.Status.State.Text.OpenCodeTerminal)!);
+
+            largeImageKey = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Large.OpenCodeTerminal.Key)!);
+            largeImageText = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Large.OpenCodeTerminal.Text)!);
+
+            smallImageKey = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Small.OpenCodeTerminal.Key)!);
+            smallImageText = await replaceAllText(config.get(CONFIG_KEYS.Status.Image.Small.OpenCodeTerminal.Text)!);
             break;
         }
     }
@@ -543,24 +557,3 @@ export const replaceFileInfo = async (
 
     return text;
 };
-
-function checkOpenCodeTerminal(config: ExtensionConfiguration, previous: SetActivity): SetActivity | undefined {
-    // Check the actual active terminal name directly, as it can change dynamically
-    // Only show OpenCode presence when focused on terminal (no active text editor)
-    const activeTerminal = window.activeTerminal?.name ?? dataClass.activeTerminalName;
-    if (activeTerminal && activeTerminal.toLowerCase().includes("opencode") && !window.activeTextEditor) {
-        const presence: SetActivity = {};
-        presence.details = "Using OpenCode";
-        presence.state = "In terminal";
-        presence.largeImageKey =
-            "https://raw.githubusercontent.com/AndrewGlez/vscord/refs/heads/main/assets/icons/opencode.png";
-        presence.largeImageText = "OpenCode";
-        delete presence.smallImageKey;
-        presence.instance = true;
-        // Preserve startTimestamp to maintain elapsed time across switches
-        if (config.get(CONFIG_KEYS.Status.ShowElapsedTime)) {
-            presence.startTimestamp = previous.startTimestamp ?? Date.now();
-        }
-        return presence;
-    }
-}

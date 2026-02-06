@@ -30,7 +30,8 @@ export const CONFIG_KEYS = {
                 Viewing: "status.details.text.viewing" as const,
                 NotInFile: "status.details.text.notInFile" as const,
                 NoWorkspaceText: "status.details.text.noWorkSpaceText" as const,
-                Debugging: "status.details.text.debugging" as const
+                Debugging: "status.details.text.debugging" as const,
+                OpenCodeTerminal: "status.details.text.opencodeTerminal" as const
             } as const
         } as const,
         State: {
@@ -47,7 +48,8 @@ export const CONFIG_KEYS = {
                 Debugging: "status.state.text.debugging" as const,
                 Viewing: "status.state.text.viewing" as const,
                 NotInFile: "status.state.text.notInFile" as const,
-                NoWorkspaceFound: "status.state.text.noWorkspaceFound" as const
+                NoWorkspaceFound: "status.state.text.noWorkspaceFound" as const,
+                OpenCodeTerminal: "status.state.text.opencodeTerminal" as const
             } as const
         } as const,
         Buttons: {
@@ -143,6 +145,10 @@ export const CONFIG_KEYS = {
                 NotInFile: {
                     Key: "status.image.large.notInFile.key" as const,
                     Text: "status.image.large.notInFile.text" as const
+                } as const,
+                OpenCodeTerminal: {
+                    Key: "status.image.large.opencodeTerminal.key" as const,
+                    Text: "status.image.large.opencodeTerminal.text" as const
                 } as const
             } as const,
             Small: {
@@ -165,6 +171,10 @@ export const CONFIG_KEYS = {
                 NotInFile: {
                     Key: "status.image.small.notInFile.key" as const,
                     Text: "status.image.small.notInFile.text" as const
+                } as const,
+                OpenCodeTerminal: {
+                    Key: "status.image.small.opencodeTerminal.key" as const,
+                    Text: "status.image.small.opencodeTerminal.text" as const
                 } as const
             } as const
         } as const,
