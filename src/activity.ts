@@ -548,12 +548,10 @@ function checkOpenCodeTerminal(config: ExtensionConfiguration): SetActivity | un
     const activeTerminal = dataClass.activeTerminalName;
     if (activeTerminal && activeTerminal.toLowerCase().includes("opencode")) {
         const presence: SetActivity = {};
-        presence.details = "Using OpenCode"; // or any custom text
-        presence.state = "In terminal"; // small-state text
-        // choose an image key:
-        // - use "shell" to reuse the existing shell icon, or
-        // - use "opencode" if you upload a matching asset in your Discord app
-        presence.largeImageKey = "shell";
+        presence.details = "Using OpenCode";
+        presence.state = "In terminal";
+        presence.largeImageKey =
+            "https://raw.githubusercontent.com/AndrewGlez/vscord/refs/heads/main/assets/icons/opencode.png";
         presence.largeImageText = "OpenCode";
         delete presence.smallImageKey;
         presence.instance = true;
