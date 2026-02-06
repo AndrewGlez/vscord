@@ -87,7 +87,7 @@ export const activity = async (
     const config = getConfig();
     const presence = previous;
 
-    const openCodePresence = checkOpenCodeTerminal(config);
+    const openCodePresence = checkOpenCodeTerminal(config, previous);
     if (openCodePresence) return openCodePresence;
 
     if (
@@ -544,7 +544,7 @@ export const replaceFileInfo = async (
     return text;
 };
 
-function checkOpenCodeTerminal(config: ExtensionConfiguration): SetActivity | undefined {
+function checkOpenCodeTerminal(config: ExtensionConfiguration, previous: SetActivity): SetActivity | undefined {
     // Check the actual active terminal name directly, as it can change dynamically
     // Only show OpenCode presence when focused on terminal (no active text editor)
     const activeTerminal = window.activeTerminal?.name ?? dataClass.activeTerminalName;
@@ -557,7 +557,10 @@ function checkOpenCodeTerminal(config: ExtensionConfiguration): SetActivity | un
         presence.largeImageText = "OpenCode";
         delete presence.smallImageKey;
         presence.instance = true;
-        if (config.get(CONFIG_KEYS.Status.ShowElapsedTime)) presence.startTimestamp = Date.now();
+        // Preserve startTimestamp to maintain elapsed time across switches
+        if (config.get(CONFIG_KEYS.Status.ShowElapsedTime)) {
+            presence.startTimestamp = previous.startTimestamp ?? Date.now();
+        }
         return presence;
     }
 }
