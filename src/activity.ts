@@ -545,8 +545,10 @@ export const replaceFileInfo = async (
 };
 
 function checkOpenCodeTerminal(config: ExtensionConfiguration): SetActivity | undefined {
-    const activeTerminal = dataClass.activeTerminalName;
-    if (activeTerminal && activeTerminal.toLowerCase().includes("opencode")) {
+    // Check the actual active terminal name directly, as it can change dynamically
+    // Only show OpenCode presence when focused on terminal (no active text editor)
+    const activeTerminal = window.activeTerminal?.name ?? dataClass.activeTerminalName;
+    if (activeTerminal && activeTerminal.toLowerCase().includes("opencode") && !window.activeTextEditor) {
         const presence: SetActivity = {};
         presence.details = "Using OpenCode";
         presence.state = "In terminal";

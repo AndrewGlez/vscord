@@ -77,8 +77,11 @@ export class RPCController {
             void this.sendActivity(isViewing, isIdling);
         };
 
-        const fileSwitch = window.onDidChangeActiveTextEditor(() => {
+        const fileSwitch = window.onDidChangeActiveTextEditor((e) => {
             logInfo("onDidChangeActiveTextEditor()");
+            // Update editor reference and clear terminal name when switching to a file editor
+            dataClass.editor = e;
+            if (e) dataClass.activeTerminalName = undefined;
             sendActivity(true);
         });
         const fileEdit = workspace.onDidChangeTextDocument((e) => {
