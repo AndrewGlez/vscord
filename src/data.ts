@@ -43,6 +43,8 @@ export class Data implements Disposable {
 
     public editor: TextEditor | undefined;
 
+    private _activeTerminalName: string | undefined;
+
     public constructor() {
         this.editor = window.activeTextEditor;
         this.requireGitApi().then((api) => {
@@ -264,6 +266,16 @@ export class Data implements Disposable {
         if (!getConfig().get(CONFIG_KEYS.Behaviour.Debug)) return;
         // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         logInfo("[data.ts]", ...message);
+    }
+
+    public get activeTerminalName(): string | undefined {
+        this.debug(`activeTerminalName(): ${this._activeTerminalName ?? ""}`);
+        return this._activeTerminalName;
+    }
+
+    public set activeTerminalName(name: string | undefined) {
+        this._activeTerminalName = name;
+        this.debug(`activeTerminalName() set: ${name ?? ""}`);
     }
 }
 

@@ -5,7 +5,7 @@ import { CONFIG_KEYS, FAKE_EMPTY } from "./constants";
 import { getFileSize } from "./helpers/getFileSize";
 import { isExcluded } from "./helpers/isExcluded";
 import { isObject } from "./helpers/isObject";
-import { getConfig } from "./config";
+import { ExtensionConfiguration, getConfig } from "./config";
 import { logInfo } from "./logger";
 import { dataClass } from "./data";
 import { sep } from "node:path";
@@ -86,6 +86,9 @@ export const activity = async (
 ): Promise<SetActivity> => {
     const config = getConfig();
     const presence = previous;
+
+    const openCodePresence = checkOpenCodeTerminal(config);
+    if (openCodePresence) return openCodePresence;
 
     if (
         isIdling &&
@@ -540,3 +543,21 @@ export const replaceFileInfo = async (
 
     return text;
 };
+
+function checkOpenCodeTerminal(config: ExtensionConfiguration): SetActivity | undefined {
+    const activeTerminal = dataClass.activeTerminalName;
+    if (activeTerminal && activeTerminal.toLowerCase().includes("opencode")) {
+        const presence: SetActivity = {};
+        presence.details = "Using OpenCode"; // or any custom text
+        presence.state = "In terminal"; // small-state text
+        // choose an image key:
+        // - use "shell" to reuse the existing shell icon, or
+        // - use "opencode" if you upload a matching asset in your Discord app
+        presence.largeImageKey = "shell";
+        presence.largeImageText = "OpenCode";
+        delete presence.smallImageKey;
+        presence.instance = true;
+        if (config.get(CONFIG_KEYS.Status.ShowElapsedTime)) presence.startTimestamp = Date.now();
+        return presence;
+    }
+}

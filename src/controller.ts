@@ -109,6 +109,29 @@ export class RPCController {
         if (config.get(CONFIG_KEYS.Status.Idle.Check)) this.listeners.push(changeWindowState);
 
         this.listeners.push(fileSwitch, fileEdit, fileSelectionChanged, debugStart, debugEnd);
+
+        // listen to terminal changes to update the active terminal name in the data class
+        const terminalOpened = window.onDidOpenTerminal((terminal) => {
+            logInfo("onDidOpenTerminal()", terminal?.name ?? "");
+            dataClass.activeTerminalName = terminal?.name;
+            sendActivity();
+        });
+
+        const terminalActiveChanged = window.onDidChangeActiveTerminal((terminal) => {
+            logInfo("onDidChangeActiveTerminal()", terminal?.name ?? "");
+            dataClass.activeTerminalName = terminal?.name;
+            sendActivity();
+        });
+
+        const terminalClosed = window.onDidCloseTerminal((terminal) => {
+            logInfo("onDidCloseTerminal()", terminal?.name ?? "");
+            // if the closed terminal was the active one, clear the name
+            if (dataClass.activeTerminalName === terminal?.name) dataClass.activeTerminalName = undefined;
+            sendActivity();
+        });
+
+        // push them to listeners so they'll be cleaned up
+        this.listeners.push(terminalOpened, terminalActiveChanged, terminalClosed);
     }
 
     private checkCanSend(isIdling: boolean): boolean {

@@ -2,6 +2,7 @@ assets/icons/
 node_modules/
 .github/
 .vscode/
+.flox/
 src/
 
 ADDING_LANGUAGE.md
